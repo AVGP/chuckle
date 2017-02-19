@@ -1,0 +1,56 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+
+<dom-module id="joke-list">
+  <template>
+    <style>
+    paper-item {
+      margin-bottom: 1em;
+    }
+    paper-item:nth-child(2n) {
+      background: #eee;
+    }
+    </style>
+    <iron-ajax
+      auto
+      url="https://api.icndb.com/jokes/"
+      params="[[apiParams]]"
+      handle-as="json"
+      last-response="{{apiResponse}}">
+    </iron-ajax>
+
+    <paper-listbox>
+      <template is="dom-repeat" items="[[jokes]]">
+        <paper-item>
+          [[item.joke]]
+        </paper-item>
+      </template>
+    </paper-listbox>
+  </template>
+  <script>
+  Polymer({
+    is: 'joke-list',
+    properties: {
+      category: 'String',
+      apiParams: {
+        type: 'Object',
+        computed: 'getParams(category)'
+      },
+      apiResponse: 'Object',
+      jokes: {
+        type: 'Array',
+        computed: 'getJokes(apiResponse)'
+      }
+    },
+    getParams: function(category) {
+      if(category) return { limitTo: category }
+      else return {}
+    },
+    getJokes: function(apiResponse) {
+      return apiResponse.value
+    }
+  })
+  </script>
+</dom-module>
