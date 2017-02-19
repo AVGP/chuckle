@@ -2,9 +2,12 @@
 <html>
   <head>
     <title>Chuckle</title>
-    <link rel="icon" href="icon.png">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ff6600">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png">
 
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
@@ -15,6 +18,8 @@
     <link rel="import" href="bower_components/paper-menu/paper-menu.html">
     <link rel="import" href="bower_components/paper-item/paper-item.html">
     <link rel="import" href="/bower_components/app-router/app-router.html">
+    <link rel="import" href="bower_components/platinum-sw/platinum-sw-register.html">
+    <link rel="import" href="bower_components/platinum-sw/platinum-sw-cache.html">
 
     <style is="custom-style">
 
@@ -34,6 +39,16 @@
     </style>
   </head>
   <body>
+
+    <platinum-sw-register
+        auto-register
+        skip-waiting
+        clients-claim
+        reload-on-install
+        href="sw-import.js">
+      <platinum-sw-cache></platinum-sw-cache>
+    </platinum-sw-register>
+
     <paper-drawer-panel>
       <paper-header-panel drawer>
         <paper-toolbar>
@@ -56,5 +71,9 @@
         </div>
       </paper-header-panel>
     </paper-drawer-panel>
+
+    <script defer>
+    if(window.location.protocol === 'http:') window.location.href = window.location.href.replace('http:', 'https:')
+    </script>
   </body>
 </html>

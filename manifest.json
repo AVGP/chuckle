@@ -1,0 +1,15 @@
+{
+  "name": "Chuckle",
+  "theme_color": "#ff6600",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "index.html",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
